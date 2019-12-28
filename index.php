@@ -36,10 +36,12 @@
         ];
 
         $token = JWT::encode($header, $payload);
+        echo("Token: " . $token);
 
-        header("Set-Cookie: jwt=".$token."; httpOnly");
+        //header("Set-Cookie: jwt=".$token."; httpOnly");
+        setrawcookie("jwt", rawurlencode($token), 0, "", "", false, true); //Naive way to avoid issues with encoding
 
-        header("Location: profile.php");
+        header("Location: profile.php", true, 301);
         exit();
 
     }else{
